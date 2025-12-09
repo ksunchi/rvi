@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дубленка - Шедеврум</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #C6BDBD;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #AE9793;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000000;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: #000;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-controls input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #574947;
+            border-radius: 20px;
+            outline: none;
+            font-size: 0.9em;
+            background-color: #C6BDBD;
+            width: 150px;
+        }
+
+        .header-controls span {
+            font-size: 2em;
+            color: #0a0a0a;
+            cursor: pointer;
+        }
+
+        .header-controls .search-icon {
+            font-size: 1.3em;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #AE9793;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+        }
+
+        .header {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            color: #333;
+            font-size: 1.5em;
+            margin: 10;
+        }
+
+        .product-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .product-image {
+            width: 45%;
+            margin-bottom: 20px;
+        }
+
+        .product-image img {
+            width: 50%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            width: 50%;
+        }
+
+        .product-info h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .product-info p {
+            line-height: 2;
+            color: #000000;
+            font-size: 1.2em;
+        }
+
+        .size-options {
+            margin-top: 25px;
+        }
+
+        .size-options p {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .size-options button {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            background-color: white;
+            margin-right: 8px;
+            transition: all 0.3s ease;
+            width: 45px;
+            height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .size-options button:hover {
+            background-color: #AE9793;
+            color: white;
+            border-color: #AE9793;
+        }
+
+        .order-button {
+            margin-top: 30px;
+        }
+
+        .order-button button {
+            padding: 15px 30px;
+            background-color: #725444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+
+        .order-button button:hover {
+            background-color: #5a4236;
+        }
+
+        .thumbnail-images {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .thumbnail-images img {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            cursor: pointer;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail-images img:hover {
+            transform: scale(1.05);
+            border-color: #AE9793;
+        }
+
+        footer {
+            background-color: #AE9793;
+            padding: 25px 20px;
+            text-align: center;
+            margin-top: auto;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px 30px;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            text-align: left;
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+
+        .footer-grid strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .footer-grid p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .product-details {
+                flex-direction: column;
+            }
+
+            .product-image, .product-info {
+                width: 100%;
+            }
+
+            .header-controls input[type="text"] {
+                width: 120px;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 10px;
+                gap: 15px;
+            }
+            
+            .header-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .header-controls input[type="text"] {
+                width: calc(100% - 80px);
+            }
+
+            .thumbnail-images {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .thumbnail-images img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .size-options button {
+                width: 40px;
+                height: 40px;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="ассортимент.html">Ассортимент</a></li>
+                    <li><a href="заказ.html">Онлайн-заказ</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-controls">
+            <input type="text" placeholder="ПОИСК">
+            <span>♡</span>
+            <span class="search-icon">🔍</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="header">
+            <h2>Быстро и удобно для наших клиентов</h2>
+        </div>
+
+        <div class="product-details">
+            <div class="product-image">
+                <img src="https://i.pinimg.com/736x/4c/5d/de/4c5dded00afa7b624a12f779795fd5ba.jpg" alt="Дубленка">
+            </div>
+
+            <div class="product-info">
+                <h1>Дубленка</h1>
+                <p>Женская дублёнка из натуральной кожи и меха — это сочетание изысканного дизайна, отменного качества материалов и комфорта в холодную погоду. Модель подчёркивает женственность силуэта, дарит тепло и уверенность в себе. Подходит для повседневного ношения и праздничных мероприятий. Идеально дополнит ваш зимний гардероб и обеспечит комфорт даже в самые суровые морозы.</p>
+
+                <div class="size-options">
+                    <p>Выберите размер:</p>
+                    <button>XS</button>
+                    <button>S</button>
+                    <button>M</button>
+                    <button>L</button>
+                    <button>XL</button>
+                </div>
+
+                <div class="order-button">
+                    <button>Перейти к оформлению &#x2705;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="thumbnail-images">
+            <img src="https://cdn1.youla.io/files/images/780_780/66/e7/66e7c8fc4e770903eb0c1043-2.jpg" alt="Дубленка Thumbnail 1">
+            <img src="https://avatars.mds.yandex.net/i?id=d5e51630144c818f2694b1f549f6eaf5_l-17392628-images-thumbs&n=13" alt="Дубленка Thumbnail 2">
+            <img src="https://n.cdn.cdek.shopping/images/shopping/BAGL5eCFFFQq1Jy5.jpg?v=1" alt="Дубленка Thumbnail 3">
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <p><strong>Telegram:</strong> @shdv_rm</p>
+                <p><strong>ВКонтакте:</strong> @shdv_rm</p>
+            </div>
+            <div>
+                <p><strong>Instagram:</strong> @shdv_rm</p>
+                <p><strong>WhatsApp:</strong> @shdv_rm</p>
+            </div>
+            <div>
+                <p><strong>Адреса:</strong></p>
+                <p>ул.Гагарина, дом 4</p>
+                <p>ул.Ленина, дом 5</p>
+                <p><strong>Контактный номер:</strong> +7 52525252552</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
