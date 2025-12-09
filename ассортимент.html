@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ассортимент товаров</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #C6BDBD;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #AE9793;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000000;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: #000;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-controls input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #574947;
+            border-radius: 20px;
+            outline: none;
+            font-size: 0.9em;
+            background-color: #C6BDBD;
+            width: 150px;
+        }
+
+        .header-controls span {
+            font-size: 2em;
+            color: #0a0a0a;
+            cursor: pointer;
+        }
+
+        .header-controls .search-icon {
+            font-size: 1.3em;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .main-banner {
+            background-color: #AE9793;
+            color: rgb(36, 35, 35);
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 1.7em;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, auto);
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: #725444;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px; 
+            background-color: #ffffff; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px; 
+            box-sizing: border-box;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .product-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            background-color: #725444;
+            color: white;
+        }
+
+        .product-info .price {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .product-info .description {
+            font-size: 0.9em;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: flex-end; 
+            align-items: center;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding-top: 10px;
+            gap: 15px; 
+        }
+
+        .card-actions span {
+            font-size: 1.5em;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 5px;
+        }
+
+        .card-actions span:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+
+        footer {
+            background-color: #AE9793;
+            padding: 25px 20px;
+            text-align: center;
+            margin-top: auto;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px 30px;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            text-align: left;
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+
+        .footer-grid strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .footer-grid p {
+            margin: 0;
+        }
+
+
+        @media (max-width: 992px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            }
+            .product-image {
+                height: 220px;
+            }
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav ul {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 10px;
+                gap: 15px;
+            }
+            .header-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            .header-controls input[type="text"] {
+                width: calc(100% - 80px);
+            }
+            .main-banner {
+                font-size: 1.5em;
+                padding: 20px 10px;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .product-image {
+                height: 250px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="ассортимент.html">Ассортимент</a></li>
+                    <li><a href="заказ.html">Онлайн-заказ</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-controls">
+            <input type="text" placeholder="ПОИСК">
+            <span>♡</span>
+            <span class="search-icon">🔍</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="main-banner">
+            <h1>У нас найдется товар для каждого!</h1>
+        </div>
+
+        <section class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.pinimg.com/736x/d4/a6/bc/d4a6bc6d12af60d4ae61a48555ec00db.jpg" alt="Рубашка женская">
+                </div>
+                <div class="product-info">
+                    <p class="price">3 200 руб.</p>
+                    <p class="description">Рубашка женская<br>женская рубашка<br>в клетку</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://avatars.mds.yandex.net/i?id=cb23539aa3de1a53148aa2bddc4d7f95bfc86364-4078171-images-thumbs&n=13" alt="Кофта женская">
+                </div>
+                <div class="product-info">
+                    <p class="price">2 100 руб.</p>
+                    <p class="description">Кофта<br>женская<br>спортивная кофта</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.pinimg.com/736x/b0/51/5c/b0515ceefafa9232a31a24352f03d011.jpg" alt="Дубленка женская">
+                </div>
+                <div class="product-info">
+                    <p class="price">5 700 руб.</p>
+                    <p class="description">Дубленка<br>женская зимняя<br>дубленка</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.pinimg.com/736x/2e/12/2a/2e122af829d4ea5fba0076c30181b3b8.jpg" alt="Куртка женская">
+                </div>
+                <div class="product-info">
+                    <p class="price">5 500 руб.</p>
+                    <p class="description">Куртка<br>женская кожаная<br>куртка</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.pinimg.com/736x/83/6a/02/836a02ea45a8d43d425b28d1bec635f6.jpg" alt="Свитшот">
+                </div>
+                <div class="product-info">
+                    <p class="price">1 999 руб.</p>
+                    <p class="description">Свитшот<br>свитшот без<br>капюшона</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://basket-16.wbbasket.ru/vol2508/part250876/250876464/images/big/1.webp" alt="Рубашка мужская">
+                </div>
+                <div class="product-info">
+                    <p class="price">2 600 руб.</p>
+                    <p class="description">Рубашка мужская<br>легкая мужская<br>рубашка</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://colhays.com/cdn/shop/files/Halfzip_black_front_1.jpg" alt="Пуловер">
+                </div>
+                <div class="product-info">
+                    <p class="price">4 500 руб.</p>
+                    <p class="description">Пуловер<br>женский<br>утепленный</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.pinimg.com/736x/b6/c7/97/b6c79779d8b720f7bd54eb8ca9160de6.jpg" alt="Кардиган">
+                </div>
+                <div class="product-info">
+                    <p class="price">1 300 руб.</p>
+                    <p class="description">Кардиган<br>женский вязаный<br>кардиган</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://sun1-83.userapi.com/s/v1/ig2/QCa72GlAKdGlTG_-XM5NHiWXSDyGJfCNSxXty_iPG_Ed1Ms9SFUyPahL9nwVqtWbqkvN2QRrHixFI2A7hEzisj56.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x214,240x321,360x481,480x641,540x721,640x855,720x962,1080x1442,1198x1600&from=bu&cs=604x807" alt="Футболка">
+                </div>
+                <div class="product-info">
+                    <p class="price">999 руб.</p>
+                    <p class="description">Футболка<br>женская<br>футболка</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.pinimg.com/736x/75/fa/c7/75fac72da2b20495036ea7258988d208.jpg" alt="Топ женский">
+                </div>
+                <div class="product-info">
+                    <p class="price">1 100 руб.</p>
+                    <p class="description">Топ женский<br>женский вязаный<br>Топ</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.pinimg.com/736x/0f/a4/7b/0fa47bac80ae2c265165bfb533904181.jpg" alt="Кофта спортивная">
+                </div>
+                <div class="product-info">
+                    <p class="price">3 999 руб.</p>
+                    <p class="description">Кофта спортивная<br>спортивная кофта<br>Adidas</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://bazaoptovik.ru/uploaded_files/cd170f7c8222906217aa7dc9147eb706_img_big.jpg" alt="Юбка женская">
+                </div>
+                <div class="product-info">
+                    <p class="price">2 800 руб.</p>
+                    <p class="description">Юбка<br>женская<br>джинсовая юбка</p>
+                    <div class="card-actions">
+                        <span>♡</span>
+                        <span>🛒</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <p><strong>Telegram:</strong> @shdv_rm</p>
+                <p><strong>ВКонтакте:</strong> @shdv_rm</p>
+            </div>
+            <div>
+                <p><strong>Instagram:</strong> @shdv_rm</p>
+                <p><strong>WhatsApp:</strong> @shdv_rm</p>
+            </div>
+            <div>
+                <p><strong>Адреса:</strong></p>
+                <p>ул.Гагарина, дом 4</p>
+                <p>ул.Ленина, дом 5</p>
+                <p><strong>Контактный номер:</strong> +7 52525252552</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
