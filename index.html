@@ -84,7 +84,7 @@
         }
 
         .hero-section h1 {
-                        font-size: 3.5em; 
+            font-size: 3.5em; 
             color: #333;
             margin: 0 0 5px 0;
             letter-spacing: 4px;
@@ -107,6 +107,16 @@
             display: block;
         }
 
+        .hero-slogan {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #333;
+        }
 
         .text-content {
             margin-bottom: 40px;
@@ -120,10 +130,10 @@
             margin-bottom: 20px;
         }
 
-
         .offers-section {
             margin-bottom: 40px;
             text-align: center;
+            position: relative;
         }
 
         .offers-section h2 {
@@ -132,24 +142,43 @@
             margin-bottom: 25px;
         }
 
-        .offers-carousel {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
+        .vertical-slider-container {
             position: relative;
-            overflow: hidden; 
-            padding: 0 40px; 
+            width: 300px;
+            height: 420px; /* 400px + gap */
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .vertical-slider-wrapper {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+
+        .vertical-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .vertical-slide.active {
+            opacity: 1;
         }
 
         .offer-item {
-            flex-shrink: 0; 
-            width: 300px;
-            height: 400px; 
-            background-color: #ccc; 
-            border-radius: 12px;
+            width: 100%;
+            height: 100%;
+            background-color: #ccc;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .offer-item img {
@@ -159,31 +188,123 @@
             display: block;
         }
 
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
+        .slider-controls {
             display: flex;
             justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .slider-btn {
+            display: inline-flex;
             align-items: center;
-            font-size: 1.5em;
-            color: #333;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(174, 151, 147, 0.9);
+            border-radius: 50%;
+            border: none;
             cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 10;
-            user-select: none;
+            font-size: 1.5em;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
 
-        .carousel-arrow.left {
-            left: 0; 
+        .slider-btn:hover {
+            background-color: rgba(174, 151, 147, 1);
+            transform: scale(1.1);
         }
 
-        .carousel-arrow.right {
-            right: 0;
+        .vertical-indicators {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .vertical-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(174, 151, 147, 0.8);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .vertical-indicator.active {
+            background-color: rgba(174, 151, 147, 1);
+            border-color: rgba(174, 151, 147, 1);
+            transform: scale(1.2);
+        }
+
+        .vertical-indicator:hover {
+            background-color: rgba(174, 151, 147, 0.8);
+        }
+
+        .slide-radio {
+            display: none;
+        }
+
+        #vertical-slide1:checked ~ .vertical-slider-wrapper {
+            transform: translateY(0%);
+        }
+        
+        #vertical-slide1:checked ~ .vertical-slider-wrapper .vertical-slide:nth-child(1) {
+            opacity: 1;
+        }
+        #vertical-slide1:checked ~ .vertical-slider-wrapper .vertical-slide:nth-child(2),
+        #vertical-slide1:checked ~ .vertical-slider-wrapper .vertical-slide:nth-child(3) {
+            opacity: 0;
+        }
+
+        #vertical-slide2:checked ~ .vertical-slider-wrapper {
+            transform: translateY(-100%);
+        }
+        
+        #vertical-slide2:checked ~ .vertical-slider-wrapper .vertical-slide:nth-child(2) {
+            opacity: 1;
+        }
+        #vertical-slide2:checked ~ .vertical-slider-wrapper .vertical-slide:nth-child(1),
+        #vertical-slide2:checked ~ .vertical-slider-wrapper .vertical-slide:nth-child(3) {
+            opacity: 0;
+        }
+
+        #vertical-slide3:checked ~ .vertical-slider-wrapper {
+            transform: translateY(-200%);
+        }
+        
+        #vertical-slide3:checked ~ .vertical-slider-wrapper .vertical-slide:nth-child(3) {
+            opacity: 1;
+        }
+        #vertical-slide3:checked ~ .vertical-slider-wrapper .vertical-slide:nth-child(1),
+        #vertical-slide3:checked ~ .vertical-slider-wrapper .vertical-slide:nth-child(2) {
+            opacity: 0;
+        }
+
+        @keyframes verticalAutoplay {
+            0%, 28% {
+                transform: translateY(0%);
+            }
+            33%, 61% {
+                transform: translateY(-100%);
+            }
+            66%, 94% {
+                transform: translateY(-200%);
+            }
+            100% {
+                transform: translateY(0%);
+            }
+        }
+
+        .auto-slider .vertical-slider-wrapper {
+            animation: verticalAutoplay 12s infinite;
         }
 
         footer {
@@ -227,17 +348,21 @@
                 font-size: 1em;
                 padding: 8px 15px;
             }
-            .offers-carousel {
-                flex-wrap: wrap; 
-                padding: 0;
-                gap: 15px;
+            .vertical-slider-container {
+                width: 280px;
+                height: 380px;
             }
-            .offer-item {
-                width: calc(50% - 10px);
-                height: 250px;
+            .slider-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
             }
-            .carousel-arrow {
-                display: none; 
+            .vertical-indicators {
+                right: 15px;
+            }
+            .vertical-indicator {
+                width: 10px;
+                height: 10px;
             }
             .footer-grid {
                 grid-template-columns: repeat(2, 1fr); 
@@ -281,12 +406,21 @@
             .offers-section h2 {
                 font-size: 1.5em;
             }
-            .offers-carousel {
-                flex-direction: column; 
+            .vertical-slider-container {
+                width: 250px;
+                height: 340px;
             }
-            .offer-item {
-                width: 90%; 
-                height: 280px;
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+            }
+            .vertical-indicators {
+                right: 10px;
+            }
+            .vertical-indicator {
+                width: 8px;
+                height: 8px;
             }
             .footer-grid {
                 grid-template-columns: 1fr; 
@@ -319,7 +453,6 @@
             <h1>Шедеврум</h1>
             <div class="hero-image-wrapper">
                 <img src="https://i.pinimg.com/originals/b0/e4/8e/b0e48e3f1538b249ae25bcbbfd7a3172.jpg" alt="Интерьер магазина одежды">
-                <p class="hero-slogan">СТИЛЬ - ЭТО ВСЕ!</p>
             </div>
         </section>
 
@@ -330,18 +463,43 @@
 
         <section class="offers-section">
             <h2>Предложения для вас!</h2>
-            <div class="offers-carousel">
-                <div class="carousel-arrow left">&lt;</div>
-                <div class="offer-item">
-                    <img src="https://i.pinimg.com/originals/04/db/e7/04dbe745cfae1fd6f59c0aa60104fd8a.jpg" alt="Одежда 1">
+            
+            <div class="vertical-slider-container">
+                <input type="radio" name="vertical-slider" class="slide-radio" id="vertical-slide1" checked>
+                <input type="radio" name="vertical-slider" class="slide-radio" id="vertical-slide2">
+                <input type="radio" name="vertical-slider" class="slide-radio" id="vertical-slide3">
+                
+                <div class="vertical-slider-wrapper">
+                    <div class="vertical-slide">
+                        <div class="offer-item">
+                            <img src="https://i.pinimg.com/originals/04/db/e7/04dbe745cfae1fd6f59c0aa60104fd8a.jpg" alt="Элегантное платье">
+                        </div>
+                    </div>
+
+                    <div class="vertical-slide">
+                        <div class="offer-item">
+                            <img src="https://i.pinimg.com/736x/2e/4b/b1/2e4bb1d6525bb30eea6e87c5a316b245.jpg" alt="Стильный костюм">
+                        </div>
+                    </div>
+
+                    <div class="vertical-slide">
+                        <div class="offer-item">
+                            <img src="https://i.pinimg.com/originals/66/f8/a0/66f8a04684c8b91665a9870e663dbb74.jpg" alt="Вечерний наряд">
+                        </div>
+                    </div>
                 </div>
-                <div class="offer-item">
-                    <img src="https://i.pinimg.com/736x/2e/4b/b1/2e4bb1d6525bb30eea6e87c5a316b245.jpg" alt="Одежда 2">
+
+                <div class="vertical-indicators">
+                    <label for="vertical-slide1" class="vertical-indicator active"></label>
+                    <label for="vertical-slide2" class="vertical-indicator"></label>
+                    <label for="vertical-slide3" class="vertical-indicator"></label>
                 </div>
-                <div class="offer-item">
-                    <img src="https://i.pinimg.com/originals/66/f8/a0/66f8a04684c8b91665a9870e663dbb74.jpg" alt="Одежда 3">
-                </div>
-                <div class="carousel-arrow right">&gt;</div>
+            </div>
+
+            <div class="slider-controls">
+                <label for="vertical-slide1" class="slider-btn">1</label>
+                <label for="vertical-slide2" class="slider-btn">2</label>
+                <label for="vertical-slide3" class="slider-btn">3</label>
             </div>
         </section>
     </main>
@@ -367,3 +525,4 @@
 
 </body>
 </html>
+
